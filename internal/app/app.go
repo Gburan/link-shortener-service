@@ -2,7 +2,6 @@ package app
 
 import (
 	"context"
-	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -77,9 +76,7 @@ func (a *App) setupHttpServer(_ context.Context) error {
 	case "map":
 		rep = inmemory.NewMapRepository()
 	default:
-		return errors.New(
-			fmt.Sprintf("got unknown storage type from config: %s", a.config.AppSettings.Storage),
-		)
+		return fmt.Errorf("got unknown storage type from config: %s", a.config.AppSettings.Storage)
 	}
 	valid := validator.New(validator.WithRequiredStructEnabled())
 
@@ -88,10 +85,10 @@ func (a *App) setupHttpServer(_ context.Context) error {
 		a.config.AppSettings.FirstURLPart,
 		a.config.AppSettings.URLLength,
 	)
-	shorter := shorter_url.NewUrlHandler(shorterUseCase, valid)
+	shorter := shorter_url.New(shorterUseCase, valid)
 
 	expanderUseCase := usecase_expander_url.NewUsecase(rep)
-	expander := expander_url.NewUrlHandler(expanderUseCase, valid)
+	expander := expander_url.New(expanderUseCase, valid)
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", expander.ExpanderURL).Methods("GET")

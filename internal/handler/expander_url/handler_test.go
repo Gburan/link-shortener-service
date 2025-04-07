@@ -96,7 +96,7 @@ func TestShorterURL(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			mockUsecase := expander_url.NewMockusecase(ctrl)
-			handler := NewUrlHandler(mockUsecase, valid)
+			handler := New(mockUsecase, valid)
 
 			tt.setupMock(mockUsecase)
 

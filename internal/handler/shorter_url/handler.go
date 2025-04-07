@@ -17,7 +17,7 @@ type urlHandler struct {
 	validator *validator.Validate
 }
 
-func NewUrlHandler(IShortURLUseCase usecase, validator *validator.Validate) *urlHandler {
+func New(IShortURLUseCase usecase, validator *validator.Validate) *urlHandler {
 	return &urlHandler{
 		usecase:   IShortURLUseCase,
 		validator: validator,

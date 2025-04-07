@@ -73,7 +73,10 @@ func TestGetByURL(t *testing.T) {
 		Original: "https://some.com/",
 		Shorted:  "http://short.ly/xHsvC_0NTU",
 	}
-	repo.PutURLPair(context.Background(), urlPair)
+	_, err := repo.PutURLPair(context.Background(), urlPair)
+	if err != nil {
+		return
+	}
 
 	tests := []struct {
 		name           string
