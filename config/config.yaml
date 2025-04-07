@@ -1,0 +1,9 @@
+server:
+  address: :8080
+postgres:
+  conn: postgres://postgres:postgres@localhost:5432/urls-service
+app_settings:
+  url_length: 10
+# storage 'db' or 'map'
+  storage: db
+  first_url_part: https://somedomain.su/
